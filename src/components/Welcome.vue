@@ -1,7 +1,9 @@
 <template>
   <div class="hello">
     <h1>Welcome to the Flash Card App!</h1>
-    <p>You currently have 0 decks in your library. Please enter the name of your new deck into the textbox:</p>
+    <p class="displayInline">You currently have 0 decks in your library. Please enter the name of your new deck into the textbox:</p>
+    <input type="text" v-model="deckInput"/>
+    <button v-on:click="submit">submit</button>
     <img src="../assets/flash_cards.png" alt="Flash Cards">
     <br>
     <a href="deck_view.html" target="_self">Navigate to the Deck View Page</a>
@@ -12,24 +14,27 @@
 export default {
   name: 'HelloWorld',
   props: {
+  },
+  data () {
+    return {
+      deckInput:""
+    }
+  },
+  methods: {
+    submit () {
+      console.log(this.deckInput)
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 a {
   color: #42b983;
+}
+
+.displayInline {
+  display:inline;
 }
 </style>
