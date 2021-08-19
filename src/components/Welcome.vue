@@ -5,7 +5,7 @@
     <p class="displayInline"> You currently have {{this.deckList.length}} decks in your library.</p>
     <br><br>
     <p class="displayInline">Please enter the name of your new deck into the textbox:</p>
-    <input type="text" v-model="deckInput"/>
+    <input type="text" v-model="deckInput" @keyup.enter="submit"/>
     <button v-on:click="submit">submit</button>
     <br> <br>
     <Decks :deckList="deckList"/>
