@@ -2,7 +2,8 @@
   <div class="hello">
     <h1>Welcome to the Flash Card App!</h1>
     <br>
-    <p>You currently have 0 decks in your library.</p>
+    <p class="displayInline"> You currently have {{numDecks}} decks in your library.</p>
+    <br><br>
     <p class="displayInline">Please enter the name of your new deck into the textbox:</p>
     <input type="text" v-model="deckInput"/>
     <button v-on:click="submit">submit</button>
@@ -20,12 +21,14 @@ export default {
   },
   data () {
     return {
-      deckInput:""
+      deckInput:"",
+      numDecks:0
     }
   },
   methods: {
     submit () {
       console.log(this.deckInput)
+      this.numDecks++
     }
   }
 }
