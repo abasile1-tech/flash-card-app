@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div>
     <h1>Welcome to the Flash Card App!</h1>
     <br>
     <p class="displayInline"> You currently have {{this.deckList.length}} decks in your library.</p>
@@ -8,6 +8,7 @@
     <input type="text" v-model="deckInput"/>
     <button v-on:click="submit">submit</button>
     <br> <br>
+    <Decks :deckList="deckList"/>
     <img src="../assets/flash_cards.png" alt="Flash Cards">
     <br>
     <a href="deck_view.html" target="_self">Navigate to the Deck View Page</a>
@@ -15,8 +16,12 @@
 </template>
 
 <script>
+import Decks from './Decks.vue'
 export default {
-  name: 'HelloWorld',
+  name: 'Welcome',
+  components: {
+    Decks
+  },
   props: {
   },
   data () {
