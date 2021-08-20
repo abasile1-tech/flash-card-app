@@ -24,6 +24,7 @@ export default {
         // console.log("hello");
         // console.log(this.deckList);
         console.log(deck);
+        this.$router.push({ path: `/single-deck/${deck}` })
     }
   }
 }
