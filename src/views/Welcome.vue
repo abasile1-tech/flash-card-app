@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Decks from './Decks.vue'
+import Decks from '../components/Decks.vue'
 export default {
   name: 'Welcome',
   components: {
