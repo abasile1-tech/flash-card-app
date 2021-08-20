@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flexContainer">
-        <button class=deckButtons :key="deck" v-for="deck in this.deckList">{{deck}}</button>
+        <button class=deckButtons :key="deck" v-for="deck in this.deckList" v-on:click="goToDeck()">{{deck}}</button>
         <!-- <ul >
             <li :key="deck" v-for="deck in this.deckList"> {{deck}} </li>
         </ul> -->
@@ -17,7 +17,13 @@ export default {
       type: Array,
       required: true
       }
-  },
+  }
+,
+  methods: {
+      goToDeck() {
+        console.log("hello");
+    }
+  }
 }
 </script>
 

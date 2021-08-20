@@ -37,6 +37,10 @@ export default {
       this.deckList.push(this.deckInput);
       this.deckInput = "";
     }
+    // ,
+    // goToDeck () {
+    //   console.log=this.deckList;
+    // }
   }
 }
 </script>
