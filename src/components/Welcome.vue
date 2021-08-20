@@ -8,7 +8,8 @@
     <input type="text" v-model="deckInput" @keyup.enter="submit"/>
     <button v-on:click="submit">submit</button>
     <br>
-    <p>When you have decks, they show up here. Click the one you want to work on.</p>
+    <p>When you have decks, they show up here. </p>
+    <p>Click on the deck that you want to work on and you will be redirected to that deck's page.</p>
     <Decks :deckList="deckList"/>
     <br>
     <img src="../assets/flash_cards.png" alt="Flash Cards">
