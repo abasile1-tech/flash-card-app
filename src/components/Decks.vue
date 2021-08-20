@@ -41,9 +41,9 @@ export default {
 
 .flexContainer {
     display: flex;
+    justify-content: center;
     row-gap: 20px;
     column-gap: 20px;
-    align-items: center;
     flex-flow: wrap;
     
 }
