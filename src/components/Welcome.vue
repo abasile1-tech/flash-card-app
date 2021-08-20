@@ -7,11 +7,13 @@
     <p class="displayInline">Please enter the name of your new deck into the textbox:</p>
     <input type="text" v-model="deckInput" @keyup.enter="submit"/>
     <button v-on:click="submit">submit</button>
-    <br> <br>
+    <br>
+    <p>When you have decks, they show up here. Click the one you want to work on.</p>
     <Decks :deckList="deckList"/>
+    <br>
     <img src="../assets/flash_cards.png" alt="Flash Cards">
     <br>
-    <a href="deck_view.html" target="_self">Navigate to the Deck View Page</a>
+    <!-- <a href="deck_view.html" target="_self">Navigate to the Deck View Page</a> -->
   </div>
 </template>
 

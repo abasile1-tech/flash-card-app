@@ -1,8 +1,9 @@
 <template>
     <div>
-        <ul>
+        <button class=deckButtons :key="deck" v-for="deck in this.deckList">{{deck}}</button>
+        <!-- <ul >
             <li :key="deck" v-for="deck in this.deckList"> {{deck}} </li>
-        </ul>
+        </ul> -->
     </div>
 </template>
 
@@ -18,6 +19,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.deckButtons {
+    color:blue;
+    background-color: darkgrey;
+    font-size: 24px;
+    border: 3px solid black;
+}
+
+.deckButtons:hover {
+    color: black;
+    background-color: blueviolet;
+    font-size: 24px;
+    border: 3px solid white;
+}
 
 </style>
