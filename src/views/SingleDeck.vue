@@ -3,8 +3,8 @@
         <h1>{{deckName}}</h1>
         <div class="card">
             <p >{{cardSide}}</p>
-            <p>{{cardsList[0].cardFront}}</p>
-            <button id="flip">Flip Card</button>
+            <p>{{cardPrompt}}</p>
+            <button id="flip" v-on:click="flipCard">Flip Card</button>
         </div>
         <button>Add Card</button>
         <button>Delete Card</button>
@@ -24,8 +24,26 @@ export default {
     data () {
         return {
             cardSide:"Front",
-            cardsList:[{cardFront:"sampleFront",cardBack:"sampleBack"}]
+            cardPrompt:"",
+            cardsList:[
+                {cardFront:"sampleFront",cardBack:"sampleBack"}
+                ]
         }
+    },
+    methods: {
+        flipCard () {
+            if (this.cardSide==="Front") {
+                this.cardSide="Back";
+                this.cardPrompt=this.cardsList[0].cardBack;
+            } else {
+                this.cardSide="Front";
+                this.cardPrompt=this.cardsList[0].cardFront;
+            }
+            
+        }
+    },
+    created () {
+        this.cardPrompt=this.cardsList[0].cardFront;
     }
 }
 </script>
