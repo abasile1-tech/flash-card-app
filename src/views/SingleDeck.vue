@@ -65,6 +65,8 @@ export default {
             this.addCardBack=false;
             this.cardSide="Front";
             console.log(this.cardsList);
+            this.cardFrontInput="";
+            this.cardBackInput="";
         },
         updateCardIndex (indexToAdd) {
             console.log(indexToAdd,"here");
