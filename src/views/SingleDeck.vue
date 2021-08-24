@@ -1,6 +1,8 @@
 <template>
     <div>
         <h1>{{deckName}}</h1>
+        <button v-on:click="updateCardIndex(-1)">Previous Card</button>
+        <button v-on:click="updateCardIndex(1)">Next Card</button>
         <div class="card">
             <p >{{cardSide}}</p>
             <p v-if="!addCardFront&&!addCardBack">{{cardPrompt}}</p>
@@ -34,7 +36,8 @@ export default {
             cardFrontInput:"",
             cardBackInput:"",
             addCardFront:false,
-            addCardBack:false
+            addCardBack:false,
+            cardsListIndex:0
         }
     },
     methods: {
@@ -43,21 +46,36 @@ export default {
                 this.cardSide="Back";
                 this.addCardBack=true;
                 this.addCardFront=false;
+                return;
             }
             if (this.cardSide==="Front") {
                 this.cardSide="Back";
-                this.cardPrompt=this.cardsList[0].cardBack;
+                this.cardPrompt=this.cardsList[this.cardsListIndex].cardBack;
             } else {
                 this.cardSide="Front";
-                this.cardPrompt=this.cardsList[0].cardFront;
-            }
-            
+                this.cardPrompt=this.cardsList[this.cardsListIndex].cardFront;
+            }   
         },
         addCard () {
             this.addCardFront=true;
         },
         submitCard () {
-
+            this.cardsList.push({cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
+            this.addCardFront=false;
+            this.addCardBack=false;
+            this.cardSide="Front";
+            console.log(this.cardsList);
+        },
+        updateCardIndex (indexToAdd) {
+            console.log(indexToAdd,"here");
+            if (indexToAdd + this.cardsListIndex < 0) {
+                this.cardsListIndex = this.cardsList.length-1;
+            } else if (indexToAdd + this.cardsListIndex > this.cardsList.length-1) {
+                this.cardsListIndex = 0;
+            } else {
+                this.cardsListIndex = indexToAdd + this.cardsListIndex;
+            }
+            this.cardPrompt=this.cardsList[this.cardsListIndex].cardFront;
         }
     },
     created () {
