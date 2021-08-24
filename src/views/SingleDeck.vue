@@ -3,9 +3,13 @@
         <h1>{{deckName}}</h1>
         <div class="card">
             <p >{{cardSide}}</p>
-            <p>{{cardPrompt}}</p>
+            <p>{{cardsList[0].cardFront}}</p>
             <button id="flip">Flip Card</button>
         </div>
+        <button>Add Card</button>
+        <button>Delete Card</button>
+        <button>Edit Card</button>
+        
     </div>
 </template>
 
@@ -20,7 +24,7 @@ export default {
     data () {
         return {
             cardSide:"Front",
-            cardPrompt:""
+            cardsList:[{cardFront:"sampleFront",cardBack:"sampleBack"}]
         }
     }
 }
