@@ -3,10 +3,13 @@
         <h1>{{deckName}}</h1>
         <div class="card">
             <p >{{cardSide}}</p>
-            <p>{{cardPrompt}}</p>
-            <button id="flip" v-on:click="flipCard">Flip Card</button>
+            <p v-if="!addCardFront&&!addCardBack">{{cardPrompt}}</p>
+            <input type="text" v-model="cardFrontInput" v-if="addCardFront" @keyup.enter="flipCard"/>
+            <input type="text" v-model="cardBackInput" v-if="addCardBack" @keyup.enter="submitCard"/>
+            <button class="cardButton" v-on:click="flipCard" v-if="!addCardBack">Flip Card</button>
+            <button class="cardButton" v-on:click="submitCard" v-if="addCardBack">Submit Card</button>
         </div>
-        <button>Add Card</button>
+        <button v-on:click="addCard">Add Card</button>
         <button>Delete Card</button>
         <button>Edit Card</button>
         
@@ -26,12 +29,21 @@ export default {
             cardSide:"Front",
             cardPrompt:"",
             cardsList:[
-                {cardFront:"sampleFront",cardBack:"sampleBack"}
-                ]
+                {cardFront:"Sample Front",cardBack:"Sample Back"}
+                ],
+            cardFrontInput:"",
+            cardBackInput:"",
+            addCardFront:false,
+            addCardBack:false
         }
     },
     methods: {
         flipCard () {
+            if (this.addCardFront) {
+                this.cardSide="Back";
+                this.addCardBack=true;
+                this.addCardFront=false;
+            }
             if (this.cardSide==="Front") {
                 this.cardSide="Back";
                 this.cardPrompt=this.cardsList[0].cardBack;
@@ -40,6 +52,12 @@ export default {
                 this.cardPrompt=this.cardsList[0].cardFront;
             }
             
+        },
+        addCard () {
+            this.addCardFront=true;
+        },
+        submitCard () {
+
         }
     },
     created () {
@@ -49,7 +67,7 @@ export default {
 </script>
 
 <style scoped>
-#flip {
+.cardButton {
     width: 8em;
     margin: 0em auto;
 }
