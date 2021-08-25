@@ -6,8 +6,8 @@
         <div class="card">
             <p >{{cardSide}}</p>
             <p v-if="!addCardFront&&!addCardBack">{{cardPrompt}}</p>
-            <input type="text" v-model="cardFrontInput" v-if="addCardFront" @keyup.enter="flipCard"/>
-            <input type="text" v-model="cardBackInput" v-if="addCardBack" @keyup.enter="submitCard"/>
+            <input type="text" placeholder="Type front text" v-model="cardFrontInput" v-if="addCardFront" @keyup.enter="flipCard"/>
+            <input type="text" placeholder="Type back text" v-model="cardBackInput" v-if="addCardBack" @keyup.enter="submitCard"/>
             <button class="cardButton" v-on:click="flipCard" v-if="!addCardBack">Flip Card</button>
             <button class="cardButton" v-on:click="submitCard" v-if="addCardBack">Submit Card</button>
         </div>
@@ -77,6 +77,7 @@ export default {
             } else {
                 this.cardsListIndex = indexToAdd + this.cardsListIndex;
             }
+            this.cardSide="Front";
             this.cardPrompt=this.cardsList[this.cardsListIndex].cardFront;
         }
     },
