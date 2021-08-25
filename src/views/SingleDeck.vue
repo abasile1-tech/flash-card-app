@@ -12,7 +12,7 @@
             <button class="cardButton" v-on:click="submitCard" v-if="addCardBack">Submit Card</button>
         </div>
         <button v-on:click="addCard">Add Card</button>
-        <button>Delete Card</button>
+        <button v-on:click="deleteCard">Delete Card</button>
         <button>Edit Card</button>
         
     </div>
@@ -79,6 +79,9 @@ export default {
             }
             this.cardSide="Front";
             this.cardPrompt=this.cardsList[this.cardsListIndex].cardFront;
+        },
+        deleteCard () {
+            this.cardsList.splice(this.cardsListIndex,1);
         }
     },
     created () {
