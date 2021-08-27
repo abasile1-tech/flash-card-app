@@ -14,7 +14,6 @@
     <br>
     <img src="../assets/flash_cards.png" alt="Flash Cards">
     <br>
-    <!-- <a href="deck_view.html" target="_self">Navigate to the Deck View Page</a> -->
   </div>
 </template>
 
@@ -38,10 +37,6 @@ export default {
       this.deckList.push(this.deckInput);
       this.deckInput = "";
     }
-    // ,
-    // goToDeck () {
-    //   console.log=this.deckList;
-    // }
   }
 }
 </script>

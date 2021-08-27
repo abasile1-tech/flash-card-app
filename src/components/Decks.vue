@@ -2,9 +2,6 @@
     <div>
         <div class="flexContainer">
         <button class=deckButtons :key="deck" v-for="deck in this.deckList" v-on:click="goToDeck(deck)">{{deck}}</button>
-        <!-- <ul >
-            <li :key="deck" v-for="deck in this.deckList"> {{deck}} </li>
-        </ul> -->
         </div>
     </div>
 </template>
@@ -21,8 +18,6 @@ export default {
 ,
   methods: {
       goToDeck(deck) {
-        // console.log("hello");
-        // console.log(this.deckList);
         console.log(deck);
         this.$router.push({ path: `/single-deck/${deck}` })
     }

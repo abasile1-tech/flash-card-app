@@ -13,7 +13,7 @@
         </div>
         <button v-on:click="addCard">Add Card</button>
         <button v-on:click="deleteCard">Delete Card</button>
-        <button>Edit Card</button>
+        <button v-on:click="editCard">Edit Card</button>
         
     </div>
 </template>
@@ -82,6 +82,9 @@ export default {
         },
         deleteCard () {
             this.cardsList.splice(this.cardsListIndex,1);
+        },
+        editCard () {
+            
         }
     },
     created () {
