@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+const url = 'http://localhost:5000/api/decks/';
 import Decks from '../components/Decks.vue'
 export default {
   name: 'Welcome',
@@ -33,10 +35,18 @@ export default {
     }
   },
   methods: {
-    submit () {
+    async submit () {
       this.deckList.push(this.deckInput);
+      const response = await axios.post(url,{deckName:this.deckInput});
+      if(response.status!==201){
+        console.log("error: ",response);
+      }
       this.deckInput = "";
     }
+  },
+  async created(){
+    const response = await axios.get(url); console.log(response);
+    this.deckList = response.body;
   }
 }
 </script>

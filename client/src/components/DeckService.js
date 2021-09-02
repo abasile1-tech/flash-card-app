@@ -1,6 +1,6 @@
 import axios from axios;
 
-const url = 'http://lcoalhost:5000/api/decks/';
+const url = 'http://localhost:5000/api/decks/';
 
 class DeckService {
     // Get Decks
@@ -22,9 +22,9 @@ class DeckService {
     }
 
     // Create Deck
-    static insertDeck(text) {
+    static insertDeck(deckName) {
         return axios.post(url, {
-            text
+            deckName
         });
     }
 
