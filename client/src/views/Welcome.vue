@@ -53,9 +53,10 @@ export default {
     // this.deckList = response;
     const deckObjList = response;
     for (var key in deckObjList) {
-    var obj = deckObjList[key];
-    this.deckName = obj.deckName;
-    console.log("the name of the obj is:",this.deckName);
+      var obj = deckObjList[key];
+      var name = obj.deckName;
+      console.log("the name of the obj is:",name);
+      this.deckList.push(name);
 }
   }
 }
