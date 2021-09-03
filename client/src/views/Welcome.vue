@@ -49,7 +49,14 @@ export default {
     const response = await (await axios.get(url)).data; 
     console.log(response);
     // this.deckList = response.body;
-    this.deckList = response;
+    // deckObjList is a list of objects, so we need to get the deckName somehow
+    // this.deckList = response;
+    const deckObjList = response;
+    for (var key in deckObjList) {
+    var obj = deckObjList[key];
+    this.deckName = obj.deckName;
+    console.log("the name of the obj is:",this.deckName);
+}
   }
 }
 </script>
