@@ -48,7 +48,8 @@ export default {
   async created(){
     const response = await (await axios.get(url)).data; 
     console.log(response);
-    this.deckList = response.body;
+    // this.deckList = response.body;
+    this.deckList = response;
   }
 }
 </script>
