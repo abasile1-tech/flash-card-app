@@ -2,8 +2,8 @@
   <div>
     <h1>Welcome to the Flash Card App!</h1>
     <br>
-    <!-- <p class="displayInline"> You currently have {{this.deckList.length}} decks in your library.</p> -->
-    <p class="displayInline"> You currently have an unknown number of decks in your library.</p>
+    <p class="displayInline"> You currently have {{this.deckList.length}} decks in your library.</p>
+    <!-- <p class="displayInline"> You currently have an unknown number of decks in your library.</p> -->
     <br><br>
     <p class="displayInline">Please enter the name of your new deck into the textbox:</p>
     <input type="text" v-model="deckInput" @keyup.enter="submit"/>
