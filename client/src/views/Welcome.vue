@@ -46,7 +46,7 @@ export default {
     }
   },
   async created(){
-    const response = await axios.get(url); 
+    const response = await (await axios.get(url)).data; 
     console.log(response);
     this.deckList = response.body;
   }
