@@ -18,7 +18,8 @@ mongoose.connect(url,{
 // Get Decks
 router.get('/', async (req, res) => {
     const Deck = mongoose.model('Deck', deckSchema, 'decks');
-    res.send(await Deck.find({}).toArray());
+    // res.send(await Deck.find({}).toArray());
+    res.send(await Deck.find({}));
 });
 
 // Add Deck
