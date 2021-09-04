@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{deckName}}</h1>
+        <h1>{{emittedObject.deckName}}</h1>
         <button v-on:click="updateCardIndex(-1)">Previous Card</button>
         <button v-on:click="updateCardIndex(1)">Next Card</button>
         <div class="card">
@@ -19,20 +19,35 @@
 </template>
 
 <script>
+import axios from 'axios';
+const url = 'http://localhost:5000/api/decks';
+
 export default {
     props: {
-        deckName: {
-            type: String,
-            required: true
+        emittedObject: {
+            type: Object,
+            required: true,
+            id: {
+                type: String,
+                required: true
+            },
+            cards: {
+                type: Array,
+                required: true
+            },
+            deckName: {
+                type: String,
+                required: true
+            }
         }
     },
     data () {
         return {
             cardSide:"Front",
             cardPrompt:"",
-            cardsList:[
-                {cardFront:"Sample Front",cardBack:"Sample Back"}
-                ],
+            // cardsList:[
+            //     {cardFront:"Sample Front",cardBack:"Sample Back"}
+            //     ],
             cardFrontInput:"",
             cardBackInput:"",
             addCardFront:false,
@@ -50,45 +65,54 @@ export default {
             }
             if (this.cardSide==="Front") {
                 this.cardSide="Back";
-                this.cardPrompt=this.cardsList[this.cardsListIndex].cardBack;
+                this.cardPrompt=this.emittedObject.cards[this.cardsListIndex].cardBack;
             } else {
                 this.cardSide="Front";
-                this.cardPrompt=this.cardsList[this.cardsListIndex].cardFront;
+                this.cardPrompt=this.emittedObject.cards[this.cardsListIndex].cardFront;
             }   
         },
         addCard () {
             this.addCardFront=true;
         },
-        submitCard () {
-            this.cardsList.push({cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
+        async submitCard () {
+            // this.cardsList.push({cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
+            const response = await axios.post(url,{cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
+            if(response.status!==201){
+                console.log("error: ",response);
+            }
+            console.log("response.data:",response.data);
             this.addCardFront=false;
             this.addCardBack=false;
             this.cardSide="Front";
-            console.log(this.cardsList);
+            console.log(this.emittedObject.cards);
             this.cardFrontInput="";
             this.cardBackInput="";
         },
         updateCardIndex (indexToAdd) {
             console.log(indexToAdd,"here");
             if (indexToAdd + this.cardsListIndex < 0) {
-                this.cardsListIndex = this.cardsList.length-1;
-            } else if (indexToAdd + this.cardsListIndex > this.cardsList.length-1) {
+                this.cardsListIndex = this.emittedObject.cards.length-1;
+            } else if (indexToAdd + this.cardsListIndex > this.emittedObject.cards.length-1) {
                 this.cardsListIndex = 0;
             } else {
                 this.cardsListIndex = indexToAdd + this.cardsListIndex;
             }
             this.cardSide="Front";
-            this.cardPrompt=this.cardsList[this.cardsListIndex].cardFront;
+            this.cardPrompt=this.emittedObject.cards[this.cardsListIndex].cardFront;
         },
         deleteCard () {
-            this.cardsList.splice(this.cardsListIndex,1);
+            // this.cardsList.splice(this.cardsListIndex,1);
         },
         editCard () {
             
         }
     },
     created () {
-        this.cardPrompt=this.cardsList[0].cardFront;
+        console.log("this.emittedObject.cards:",this.emittedObject.cards);
+        //console.log("this.props.cards:",this.props.cards);
+        if(this.emittedObject.cards.length!=0){
+            this.cardPrompt=this.emittedObject.cards[0].cardFront;
+        }
     }
 }
 </script>

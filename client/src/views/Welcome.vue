@@ -2,7 +2,7 @@
   <div>
     <h1>Welcome to the Flash Card App!</h1>
     <br>
-    <p class="displayInline"> You currently have {{this.deckList.length}} decks in your library.</p>
+    <p class="displayInline"> You currently have {{this.deckObjectList.length}} decks in your library.</p>
     <!-- <p class="displayInline"> You currently have an unknown number of decks in your library.</p> -->
     <br><br>
     <p class="displayInline">Please enter the name of your new deck into the textbox:</p>
@@ -11,7 +11,9 @@
     <br>
     <p>When you have decks, they show up here. </p>
     <p>Click on the deck that you want to work on and you will be redirected to that deck's page.</p>
-    <Decks :deckList="deckList"/>
+    <div class="flexContainer">
+        <button class=deckButtons :key="deck" v-for="deck in this.deckObjectList" v-on:click="goToDeck(deck)">{{deck.deckName}}</button>
+    </div>
     <br>
     <img src="../assets/flash_cards.png" alt="Flash Cards">
     <br>
@@ -21,28 +23,36 @@
 <script>
 import axios from 'axios';
 const url = 'http://localhost:5000/api/decks/';
-import Decks from '../components/Decks.vue'
+
 export default {
   name: 'Welcome',
   components: {
-    Decks
+    
   },
   props: {
   },
   data () {
     return {
       deckInput:"",
-      deckList:[]
+      deckObjectList:[]
     }
   },
   methods: {
     async submit () {
-      this.deckList.push(this.deckInput);
+      // this.deckList.push(this.deckInput);
       const response = await axios.post(url,{deckName:this.deckInput});
       if(response.status!==201){
         console.log("error: ",response);
       }
+      this.deckObjectList.push(response.data);
       this.deckInput = "";
+    },
+    goToDeck (deckObj) {
+      console.log("deckObj emitted: ",deckObj);
+      //emit deck
+      this.$emit("emitDeck", deckObj);
+      //advance route
+      this.$router.push({ path: `/single-deck/${deckObj.deckName}` })
     }
   },
   async created(){
@@ -51,13 +61,13 @@ export default {
     // this.deckList = response.body;
     // deckObjList is a list of objects, so we need to get the deckName somehow
     // this.deckList = response;
-    const deckObjList = response.data;
-    for (var key in deckObjList) {
-      var obj = deckObjList[key];
-      var name = obj.deckName;
-      console.log("the name of the obj is:",name);
-      this.deckList.push(name);
-}
+    this.deckObjectList = response.data;
+//     for (const key in deckObjList) {
+//       const obj = deckObjList[key];
+//       const name = obj.deckName;
+//       console.log("the name of the obj is:",name);
+//       this.deckList.push(name);
+// }
   }
 }
 </script>
@@ -70,5 +80,30 @@ a {
 
 .displayInline {
   display:inline;
+}
+.deckButtons {
+    color:blue;
+    background-color: darkgrey;
+    font-size: 24px;
+    border: 3px solid black;
+    width:fit-content;
+    
+}
+
+.deckButtons:hover {
+    color: black;
+    background-color: blueviolet;
+    font-size: 24px;
+    border: 3px solid white;
+    width: fit-content;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: center;
+    row-gap: 20px;
+    column-gap: 20px;
+    flex-flow: wrap;
+    
 }
 </style>

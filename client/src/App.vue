@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view v-on:emitDeck="emitDeck" v-bind:emittedObject="objectToPass"></router-view>
   </div>
 </template>
 
@@ -9,6 +9,16 @@
 export default {
   name: 'App',
   components: {
+  },
+  data (){
+    return {
+      objectToPass:{}
+    }
+  },
+  methods: {
+    emitDeck(obj){
+      this.objectToPass=obj;
+    }
   }
 }
 </script>
