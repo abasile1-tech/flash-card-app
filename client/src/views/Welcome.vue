@@ -46,12 +46,12 @@ export default {
     }
   },
   async created(){
-    const response = await (await axios.get(url)).data; 
+    const response = await axios.get(url); 
     console.log(response);
     // this.deckList = response.body;
     // deckObjList is a list of objects, so we need to get the deckName somehow
     // this.deckList = response;
-    const deckObjList = response;
+    const deckObjList = response.data;
     for (var key in deckObjList) {
       var obj = deckObjList[key];
       var name = obj.deckName;
