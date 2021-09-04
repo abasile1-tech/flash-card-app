@@ -20,14 +20,14 @@
 
 <script>
 import axios from 'axios';
-const url = 'http://localhost:5000/api/decks';
+const url = 'http://localhost:5000/api/decks/';
 
 export default {
     props: {
         emittedObject: {
             type: Object,
             required: true,
-            id: {
+            _id: {
                 type: String,
                 required: true
             },
@@ -76,11 +76,13 @@ export default {
         },
         async submitCard () {
             // this.cardsList.push({cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
-            const response = await axios.post(url,{cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
+            console.log("url:",url+this.emittedObject._id+"/cards");
+            const response = await axios.post(url+this.emittedObject._id+"/cards",{cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
             if(response.status!==201){
                 console.log("error: ",response);
             }
             console.log("response.data:",response.data);
+            this.emittedObject.cards = response.data.cards;
             this.addCardFront=false;
             this.addCardBack=false;
             this.cardSide="Front";

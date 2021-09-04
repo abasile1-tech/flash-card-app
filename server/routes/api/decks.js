@@ -15,9 +15,11 @@ mongoose.connect(url,{
 }).then(() => console.log("Database connected!"))
 .catch(err =>console.log(err));
 
+const Deck = mongoose.model('Deck', deckSchema, 'decks');
+
 // Get Decks
 router.get('/', async (req, res) => {
-    const Deck = mongoose.model('Deck', deckSchema, 'decks');
+    //const Deck = mongoose.model('Deck', deckSchema, 'decks');
     // res.send(await Deck.find({}).toArray());
     res.send(await Deck.find({}));
 });
@@ -25,7 +27,7 @@ router.get('/', async (req, res) => {
 // Add Deck
 router.post('/', async (req, res) => {
     try {
-        const Deck = mongoose.model('Deck', deckSchema, 'decks');
+        //const Deck = mongoose.model('Deck', deckSchema, 'decks');
         const deck = new Deck();
         deck.deckName = req.body.deckName;
         deck.cards = [];
@@ -47,5 +49,21 @@ router.post('/', async (req, res) => {
 //     await decks.deleteOne({_id: new mongodb.ObjectId(req.params.id)});
 //     res.status(200).send();
 // });
+
+// Add Card
+router.post("/:id/cards", async (req,res) => {
+    console.log("params:",req.params);
+    console.log("req:",req.query);
+    console.log("body:",req.body);
+    let deck = await Deck.findById(req.params.id);
+    deck.cards.push({cardFront: req.body.cardFront, cardBack: req.body.cardBack});
+    await deck.save(function(err,deck){
+        if (err) {
+            res.status(500);
+        }
+        res.status(201).json(deck);
+    });
+
+})
 
 module.exports = router;
