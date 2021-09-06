@@ -13,8 +13,11 @@
         </div>
         <button v-on:click="addCard">Add Card</button>
         <button v-on:click="deleteCard">Delete Card</button>
-        <button v-on:click="editCard">Edit Card</button>
-        
+        <button v-on:click="editCard">Edit Card</button> 
+        <div>
+            <button v-on:click="goBackToDecks">Return To Decks</button>
+            <button v-on:click="deleteDeck">Delete Current Deck</button>
+        </div>
     </div>
 </template>
 
@@ -45,9 +48,6 @@ export default {
         return {
             cardSide:"Front",
             cardPrompt:"",
-            // cardsList:[
-            //     {cardFront:"Sample Front",cardBack:"Sample Back"}
-            //     ],
             cardFrontInput:"",
             cardBackInput:"",
             addCardFront:false,
@@ -75,7 +75,6 @@ export default {
             this.addCardFront=true;
         },
         async submitCard () {
-            // this.cardsList.push({cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
             console.log("url:",url+this.emittedObject._id+"/cards");
             const response = await axios.post(url+this.emittedObject._id+"/cards",{cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
             if(response.status!==201){
@@ -103,15 +102,22 @@ export default {
             this.cardPrompt=this.emittedObject.cards[this.cardsListIndex].cardFront;
         },
         deleteCard () {
-            // this.cardsList.splice(this.cardsListIndex,1);
+
         },
         editCard () {
             
+        },
+        goBackToDecks () {
+            //advance route back to the Welcome Page
+            this.$router.push({ path: '/' })
+        },
+        async deleteDeck(){
+            await axios.delete(url+this.emittedObject._id+"/cards");
+            this.goBackToDecks();
         }
     },
     created () {
         console.log("this.emittedObject.cards:",this.emittedObject.cards);
-        //console.log("this.props.cards:",this.props.cards);
         if(this.emittedObject.cards.length!=0){
             this.cardPrompt=this.emittedObject.cards[0].cardFront;
         }

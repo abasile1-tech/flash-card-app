@@ -3,7 +3,6 @@
     <h1>Welcome to the Flash Card App!</h1>
     <br>
     <p class="displayInline"> You currently have {{this.deckObjectList.length}} decks in your library.</p>
-    <!-- <p class="displayInline"> You currently have an unknown number of decks in your library.</p> -->
     <br><br>
     <p class="displayInline">Please enter the name of your new deck into the textbox:</p>
     <input type="text" v-model="deckInput" @keyup.enter="submit"/>
@@ -39,7 +38,6 @@ export default {
   },
   methods: {
     async submit () {
-      // this.deckList.push(this.deckInput);
       const response = await axios.post(url,{deckName:this.deckInput});
       if(response.status!==201){
         console.log("error: ",response);
@@ -58,16 +56,7 @@ export default {
   async created(){
     const response = await axios.get(url); 
     console.log(response);
-    // this.deckList = response.body;
-    // deckObjList is a list of objects, so we need to get the deckName somehow
-    // this.deckList = response;
     this.deckObjectList = response.data;
-//     for (const key in deckObjList) {
-//       const obj = deckObjList[key];
-//       const name = obj.deckName;
-//       console.log("the name of the obj is:",name);
-//       this.deckList.push(name);
-// }
   }
 }
 </script>

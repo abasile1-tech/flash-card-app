@@ -11,7 +11,6 @@ const url = 'mongodb://localhost:27017/flashcardapp?readPreference=primary&appna
 mongoose.connect(url,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
-    // useCreateIndex:true
 }).then(() => console.log("Database connected!"))
 .catch(err =>console.log(err));
 
@@ -19,15 +18,12 @@ const Deck = mongoose.model('Deck', deckSchema, 'decks');
 
 // Get Decks
 router.get('/', async (req, res) => {
-    //const Deck = mongoose.model('Deck', deckSchema, 'decks');
-    // res.send(await Deck.find({}).toArray());
     res.send(await Deck.find({}));
 });
 
 // Add Deck
 router.post('/', async (req, res) => {
     try {
-        //const Deck = mongoose.model('Deck', deckSchema, 'decks');
         const deck = new Deck();
         deck.deckName = req.body.deckName;
         deck.cards = [];
@@ -44,11 +40,15 @@ router.post('/', async (req, res) => {
 });
 
 // Delete Deck
-// router.delete('/:id', async (req, res) => {
-//     // const decks = await loadDecksCollection(); 
-//     await decks.deleteOne({_id: new mongodb.ObjectId(req.params.id)});
-//     res.status(200).send();
-// });
+router.delete('/:id/cards', async (req, res) => {
+    try {
+        let deck = await Deck.findById(req.params.id);
+        await deck.delete()
+        res.status(200).send();
+    } catch (err) {
+         console.log(err);
+    }
+});
 
 // Add Card
 router.post("/:id/cards", async (req,res) => {
