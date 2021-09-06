@@ -13,8 +13,10 @@
         </div>
         <button v-on:click="addCard">Add Card</button>
         <button v-on:click="deleteCard">Delete Card</button>
-        <button v-on:click="editCard">Edit Card</button>
-        
+        <button v-on:click="editCard">Edit Card</button> 
+        <div>
+            <button v-on:click="goBackToDecks">Return To Decks</button>
+        </div>
     </div>
 </template>
 
@@ -103,7 +105,11 @@ export default {
         },
         editCard () {
             
-        }
+        },
+        goBackToDecks () {
+            //advance route
+            this.$router.push({ path: '/' })
+    }
     },
     created () {
         console.log("this.emittedObject.cards:",this.emittedObject.cards);
