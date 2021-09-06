@@ -45,9 +45,6 @@ export default {
         return {
             cardSide:"Front",
             cardPrompt:"",
-            // cardsList:[
-            //     {cardFront:"Sample Front",cardBack:"Sample Back"}
-            //     ],
             cardFrontInput:"",
             cardBackInput:"",
             addCardFront:false,
@@ -75,7 +72,6 @@ export default {
             this.addCardFront=true;
         },
         async submitCard () {
-            // this.cardsList.push({cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
             console.log("url:",url+this.emittedObject._id+"/cards");
             const response = await axios.post(url+this.emittedObject._id+"/cards",{cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
             if(response.status!==201){
@@ -103,7 +99,7 @@ export default {
             this.cardPrompt=this.emittedObject.cards[this.cardsListIndex].cardFront;
         },
         deleteCard () {
-            // this.cardsList.splice(this.cardsListIndex,1);
+
         },
         editCard () {
             
@@ -111,7 +107,6 @@ export default {
     },
     created () {
         console.log("this.emittedObject.cards:",this.emittedObject.cards);
-        //console.log("this.props.cards:",this.props.cards);
         if(this.emittedObject.cards.length!=0){
             this.cardPrompt=this.emittedObject.cards[0].cardFront;
         }

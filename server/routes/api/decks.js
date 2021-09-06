@@ -11,7 +11,6 @@ const url = 'mongodb://localhost:27017/flashcardapp?readPreference=primary&appna
 mongoose.connect(url,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
-    // useCreateIndex:true
 }).then(() => console.log("Database connected!"))
 .catch(err =>console.log(err));
 
@@ -19,15 +18,12 @@ const Deck = mongoose.model('Deck', deckSchema, 'decks');
 
 // Get Decks
 router.get('/', async (req, res) => {
-    //const Deck = mongoose.model('Deck', deckSchema, 'decks');
-    // res.send(await Deck.find({}).toArray());
     res.send(await Deck.find({}));
 });
 
 // Add Deck
 router.post('/', async (req, res) => {
     try {
-        //const Deck = mongoose.model('Deck', deckSchema, 'decks');
         const deck = new Deck();
         deck.deckName = req.body.deckName;
         deck.cards = [];
