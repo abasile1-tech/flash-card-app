@@ -16,6 +16,7 @@
         <button v-on:click="editCard">Edit Card</button> 
         <div>
             <button v-on:click="goBackToDecks">Return To Decks</button>
+            <button v-on:click="deleteDeck">Delete Current Deck</button>
         </div>
     </div>
 </template>
@@ -107,9 +108,13 @@ export default {
             
         },
         goBackToDecks () {
-            //advance route
+            //advance route back to the Welcome Page
             this.$router.push({ path: '/' })
-    }
+        },
+        async deleteDeck(){
+            await axios.delete(url+this.emittedObject._id+"/cards");
+            this.goBackToDecks();
+        }
     },
     created () {
         console.log("this.emittedObject.cards:",this.emittedObject.cards);

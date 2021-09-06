@@ -40,11 +40,15 @@ router.post('/', async (req, res) => {
 });
 
 // Delete Deck
-// router.delete('/:id', async (req, res) => {
-//     // const decks = await loadDecksCollection(); 
-//     await decks.deleteOne({_id: new mongodb.ObjectId(req.params.id)});
-//     res.status(200).send();
-// });
+router.delete('/:id/cards', async (req, res) => {
+    try {
+        let deck = await Deck.findById(req.params.id);
+        await deck.delete()
+        res.status(200).send();
+    } catch (err) {
+         console.log(err);
+    }
+});
 
 // Add Card
 router.post("/:id/cards", async (req,res) => {
