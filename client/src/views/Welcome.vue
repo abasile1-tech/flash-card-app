@@ -46,7 +46,6 @@ export default {
       this.deckInput = "";
     },
     goToDeck (deckObj) {
-      console.log("deckObj emitted: ",deckObj);
       //emit deck
       this.$emit("emitDeck", deckObj);
       //advance route
@@ -55,7 +54,6 @@ export default {
   },
   async created(){
     const response = await axios.get(url); 
-    console.log(response);
     this.deckObjectList = response.data;
   }
 }
