@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
 });
 
 // Delete Deck
-router.delete('/:id/cards', async (req, res) => {
+router.delete('/:id/deckName', async (req, res) => {
     try {
         let deck = await Deck.findById(req.params.id);
         await deck.delete()
@@ -51,14 +51,10 @@ router.delete('/:id/cards', async (req, res) => {
 });
 
 // Edit Deck
-router.put('/:id/cards', async (req, res) => {
+router.put('/:id/deckName', async (req, res) => {
     try {
         let deck = await Deck.findById(req.params.id);
-        console.log("deck:", deck);
-        console.log("deck.deckname:",deck.deckName);
-        console.log("req.body.deckName:",req.body.deckName);
         deck.deckName = req.body.deckName;
-        console.log("deck.deckName:",deck.deckName);
         await deck.save(function(err,deck){
             if (err) {
                 res.status(500);
@@ -81,7 +77,6 @@ router.post("/:id/cards", async (req,res) => {
         }
         res.status(201).json(deck);
     });
-
 })
 
 module.exports = router;

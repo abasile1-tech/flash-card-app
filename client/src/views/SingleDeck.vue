@@ -79,22 +79,18 @@ export default {
             this.addCardFront=true;
         },
         async submitCard () {
-            console.log("url:",url+this.emittedObject._id+"/cards");
             const response = await axios.post(url+this.emittedObject._id+"/cards",{cardFront:this.cardFrontInput,cardBack:this.cardBackInput});
             if(response.status!==201){
                 console.log("error: ",response);
             }
-            console.log("response.data:",response.data);
             this.emittedObject.cards = response.data.cards;
             this.addCardFront=false;
             this.addCardBack=false;
             this.cardSide="Front";
-            console.log(this.emittedObject.cards);
             this.cardFrontInput="";
             this.cardBackInput="";
         },
         updateCardIndex (indexToAdd) {
-            console.log(indexToAdd,"here");
             if (indexToAdd + this.cardsListIndex < 0) {
                 this.cardsListIndex = this.emittedObject.cards.length-1;
             } else if (indexToAdd + this.cardsListIndex > this.emittedObject.cards.length-1) {
@@ -116,7 +112,7 @@ export default {
             this.$router.push({ path: '/' })
         },
         async deleteDeck(){
-            await axios.delete(url+this.emittedObject._id+"/cards");
+            await axios.delete(url+this.emittedObject._id+"/deckName");
             this.goBackToDecks();
         },
         editDeckName(){
@@ -124,7 +120,7 @@ export default {
         },
         async submitEditedDeckName(){
             this.emittedObject.deckName=this.editDeckNameInput;
-            const response = await axios.put(url+this.emittedObject._id+"/cards",{deckName:this.editDeckNameInput});
+            const response = await axios.put(url+this.emittedObject._id+"/deckName",{deckName:this.editDeckNameInput});
             if(response.status!==201){
                 console.log("error: ",response);
             }
@@ -133,7 +129,6 @@ export default {
         }
     },
     created () {
-        console.log("this.emittedObject.cards:",this.emittedObject.cards);
         if(this.emittedObject.cards.length!=0){
             this.cardPrompt=this.emittedObject.cards[0].cardFront;
         }
