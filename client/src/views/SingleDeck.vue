@@ -112,7 +112,7 @@ export default {
             this.$router.push({ path: '/' })
         },
         async deleteDeck(){
-            await axios.delete(url+this.emittedObject._id+"/cards");
+            await axios.delete(url+this.emittedObject._id+"/deckName");
             this.goBackToDecks();
         },
         editDeckName(){
@@ -120,7 +120,7 @@ export default {
         },
         async submitEditedDeckName(){
             this.emittedObject.deckName=this.editDeckNameInput;
-            const response = await axios.put(url+this.emittedObject._id+"/cards",{deckName:this.editDeckNameInput});
+            const response = await axios.put(url+this.emittedObject._id+"/deckName",{deckName:this.editDeckNameInput});
             if(response.status!==201){
                 console.log("error: ",response);
             }
