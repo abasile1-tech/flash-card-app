@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>{{emittedObject.deckName}}</h1>
+        <h1 v-if="!editDeckNameSelected">{{emittedObject.deckName}}</h1>
+        <input type="text" placeholder="Type the new deck name" v-model="editDeckNameInput" v-if="editDeckNameSelected" @keyup.enter="submitEditedDeckName"/>
         <button v-on:click="updateCardIndex(-1)">Previous Card</button>
         <button v-on:click="updateCardIndex(1)">Next Card</button>
         <div class="card">
@@ -17,6 +18,7 @@
         <div>
             <button v-on:click="goBackToDecks">Return To Decks</button>
             <button v-on:click="deleteDeck">Delete Current Deck</button>
+            <button v-on:click="editDeckName">Edit Deck Name</button>
         </div>
     </div>
 </template>
@@ -52,7 +54,9 @@ export default {
             cardBackInput:"",
             addCardFront:false,
             addCardBack:false,
-            cardsListIndex:0
+            cardsListIndex:0,
+            editDeckNameSelected:false,
+            editDeckNameInput:""
         }
     },
     methods: {
@@ -114,6 +118,18 @@ export default {
         async deleteDeck(){
             await axios.delete(url+this.emittedObject._id+"/cards");
             this.goBackToDecks();
+        },
+        editDeckName(){
+            this.editDeckNameSelected=true;
+        },
+        async submitEditedDeckName(){
+            this.emittedObject.deckName=this.editDeckNameInput;
+            const response = await axios.put(url+this.emittedObject._id+"/cards",{deckName:this.editDeckNameInput});
+            if(response.status!==201){
+                console.log("error: ",response);
+            }
+            this.editDeckNameInput="";
+            this.editDeckNameSelected=false;
         }
     },
     created () {

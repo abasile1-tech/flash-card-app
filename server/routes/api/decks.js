@@ -50,11 +50,29 @@ router.delete('/:id/cards', async (req, res) => {
     }
 });
 
+// Edit Deck
+router.put('/:id/cards', async (req, res) => {
+    try {
+        let deck = await Deck.findById(req.params.id);
+        console.log("deck:", deck);
+        console.log("deck.deckname:",deck.deckName);
+        console.log("req.body.deckName:",req.body.deckName);
+        deck.deckName = req.body.deckName;
+        console.log("deck.deckName:",deck.deckName);
+        await deck.save(function(err,deck){
+            if (err) {
+                res.status(500);
+            }
+            res.status(201).json(deck);
+        });
+    } catch (err) {
+         console.log(err)
+    }
+    
+});
+
 // Add Card
 router.post("/:id/cards", async (req,res) => {
-    console.log("params:",req.params);
-    console.log("req:",req.query);
-    console.log("body:",req.body);
     let deck = await Deck.findById(req.params.id);
     deck.cards.push({cardFront: req.body.cardFront, cardBack: req.body.cardBack});
     await deck.save(function(err,deck){
