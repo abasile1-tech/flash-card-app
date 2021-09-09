@@ -14,7 +14,6 @@
         </div>
         <button v-on:click="addCard">Add Card</button>
         <button v-on:click="deleteCard">Delete Card</button>
-        <button v-on:click="editCard">Edit Card</button> 
         <div>
             <button v-on:click="goBackToDecks">Return To Decks</button>
             <button v-on:click="deleteDeck">Delete Current Deck</button>
@@ -104,12 +103,8 @@ export default {
             this.cardId=this.emittedObject.cards[this.cardsListIndex]._id;
         },
         async deleteCard () {
-            console.log("this.emittedObject:",this.emittedObject);
             await axios.delete(url+this.emittedObject._id+"/cards/"+this.cardId);
             this.goBackToDecks();
-        },
-        editCard () {
-            
         },
         goBackToDecks () {
             //advance route back to the Welcome Page
