@@ -56,7 +56,8 @@ export default {
             addCardBack:false,
             cardsListIndex:0,
             editDeckNameSelected:false,
-            editDeckNameInput:""
+            editDeckNameInput:"",
+            cardId:""
         }
     },
     methods: {
@@ -100,9 +101,12 @@ export default {
             }
             this.cardSide="Front";
             this.cardPrompt=this.emittedObject.cards[this.cardsListIndex].cardFront;
+            this.cardId=this.emittedObject.cards[this.cardsListIndex]._id;
         },
-        deleteCard () {
-
+        async deleteCard () {
+            console.log("this.emittedObject:",this.emittedObject);
+            await axios.delete(url+this.emittedObject._id+"/cards/"+this.cardId);
+            this.goBackToDecks();
         },
         editCard () {
             
@@ -131,6 +135,7 @@ export default {
     created () {
         if(this.emittedObject.cards.length!=0){
             this.cardPrompt=this.emittedObject.cards[0].cardFront;
+            this.cardId=this.emittedObject.cards[0]._id;
         }
     }
 }
