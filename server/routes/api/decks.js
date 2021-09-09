@@ -83,25 +83,9 @@ router.post("/:id/cards", async (req,res) => {
 router.delete('/:id/cards/:cardId', async (req, res) => {
     try {
         let deck = await Deck.findById(req.params.id);
-        let spliceIndex;
-
-        for (const cardIndex in deck.cards){
-            if(deck.cards[cardIndex]._id == req.params.cardId){
-                spliceIndex=cardIndex;
-                console.log("req.params.cardId:", req.params.cardId);
-            }
-        }
-        console.log("spliceIndex:",spliceIndex);
-        //deck.cards.splice(spliceIndex);
-        console.log("deck.cards[spliceIndex]:",deck.cards[spliceIndex]);
-        //deck.cards[spliceIndex].delete();
-        console.log("deck.cards before:",deck.cards);
-        //deck.cards.splice(spliceIndex);
 
         // the pull function deletes from the mongodb
         deck.cards.pull({ _id: req.params.cardId });
-        console.log("deck.cards after:",deck.cards);
-
 
         await deck.save(function(err,deck){
             if (err) {
@@ -109,7 +93,6 @@ router.delete('/:id/cards/:cardId', async (req, res) => {
             }
             res.status(201).json(deck);
         });
-        //res.status(200).send();
     } catch (err) {
          console.log(err);
     }
