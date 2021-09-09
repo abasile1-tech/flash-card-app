@@ -79,4 +79,23 @@ router.post("/:id/cards", async (req,res) => {
     });
 })
 
+// Delete Card
+router.delete('/:id/cards/:cardId', async (req, res) => {
+    try {
+        let deck = await Deck.findById(req.params.id);
+
+        // the pull function deletes from the mongodb
+        deck.cards.pull({ _id: req.params.cardId });
+
+        await deck.save(function(err,deck){
+            if (err) {
+                res.status(500);
+            }
+            res.status(201).json(deck);
+        });
+    } catch (err) {
+         console.log(err);
+    }
+});
+
 module.exports = router;
