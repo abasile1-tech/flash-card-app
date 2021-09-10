@@ -91,6 +91,14 @@ export default {
             this.cardBackInput="";
         },
         updateCardIndex (indexToAdd) {
+            if (this.emittedObject.cards.length === 0){
+                console.log("there are no cards in the deck.");
+                return;
+            }
+            if (this.emittedObject.cards.length === 1){
+                console.log("there is only one card in the deck.");
+                return;
+            }
             if (indexToAdd + this.cardsListIndex < 0) {
                 this.cardsListIndex = this.emittedObject.cards.length-1;
             } else if (indexToAdd + this.cardsListIndex > this.emittedObject.cards.length-1) {
